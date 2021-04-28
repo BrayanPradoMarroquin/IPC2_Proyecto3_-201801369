@@ -1,0 +1,75 @@
+{% load static %}
+
+<!-- saved from url=(0062)https://www.w3schools.com/w3css/tryw3css_templates_webpage.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>IPC2-Proyecto3</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static '/w3.css' %}">
+<link rel="stylesheet" href="{% static '/w3-theme-black.css' %}">
+<link rel="stylesheet" href="{% static '/css.css' %}">
+<link rel="stylesheet" href="{% static '/font-awesome.css' %}">
+<style>
+  #con-css{
+    resize:none;
+}
+   #con-csss{
+    resize:none;
+}
+html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+.w3-sidebar {width: 120px;background: #222;}
+#main {margin-left: 120px}
+</style>
+</head><body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="./static/ingenieria.png" style="width:100%">
+  <a class="w3-bar-item w3-button w3-padding-large w3-black">
+    <input type="file" ><p>CARGAR ARCHIVO</p></input>
+  </a>
+  <a href="https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>PETICIONES</p>
+  </a>
+  <a href="https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>AYUDA</p>
+  </a>
+</nav>
+
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small">Proyecto</span> 3</h1>
+    <p></p>
+        <textarea placeholder="Entrada"  id="con-csss" name="comentarios" rows="20" cols="80"></textarea>
+        <textarea placeholder="Salida"  id="con-css" name="comentarios" rows="20" cols="80"></textarea>
+    <p>
+      <button  class="w3-button w3-block w3-dark-grey" type="submit">Enviar </button>
+      <p>
+    <p>
+      <button  class="w3-button w3-block w3-dark-grey" type="submit">Reset</button>
+      <p>
+  </header>
+
+
+<!-- END PAGE CONTENT -->
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+<!-- END MAIN -->
+</div>
+</body></html>
