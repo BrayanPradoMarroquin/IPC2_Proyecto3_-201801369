@@ -23,12 +23,16 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </head><body class="w3-black">
 
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+<footer class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center"   id="about">
   <!-- Avatar image in top left corner -->
   <img src="./static/ingenieria.png" style="width:100%">
-  <a class="w3-bar-item w3-button w3-padding-large w3-black">
-    <input type="file" ><p>CARGAR ARCHIVO</p></input>
-  </a>
+  <div class="w3-bar-item w3-button w3-padding-large w3-black">
+   <input type= "file" id="fileChooser" style="display: none;"/>
+      <button  class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" onclick="abrirArchivo(fileChooser)">ABRIR ARCHIVO</button>
+  </div>
+</footer>
+
+
   <a href="https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-user w3-xxlarge"></i>
     <p>PETICIONES</p>
@@ -37,7 +41,6 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-eye w3-xxlarge"></i>
     <p>AYUDA</p>
   </a>
-</nav>
 
 
 <!-- Page Content -->
@@ -46,13 +49,13 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small">Proyecto</span> 3</h1>
     <p></p>
-        <textarea placeholder="Entrada"  id="con-csss" name="comentarios" rows="20" cols="80"></textarea>
-        <textarea placeholder="Salida"  id="con-css" name="comentarios" rows="20" cols="80"></textarea>
+    <textarea placeholder="Entrada"  id="con-csss" name="comentarios" rows="20" cols="80"></textarea>
+    <textarea placeholder="Salida"  id="con-css" name="comentarios" rows="20" cols="80"></textarea>
     <p>
-      <button  class="w3-button w3-block w3-dark-grey" type="submit">Enviar </button>
+      <button id="Enviar" class="w3-button w3-block w3-dark-grey" type="submit">Enviar </button>
       <p>
     <p>
-      <button  class="w3-button w3-block w3-dark-grey" type="submit">Reset</button>
+      <button class="w3-button w3-block w3-dark-grey" type="submit">Reset</button>
       <p>
   </header>
 
@@ -60,15 +63,71 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <!-- END PAGE CONTENT -->
 </div>
 
+<script>
+  var fileChooser = document.getElementById('fileChooser');
+  var data = document.getElementById('Enviar');
+  var datafil = document.getElementById('con-csss');
+
+  if (fileChooser)
+    fileChooser.addEventListener("change", subirArchivo)
+
+  function subirArchivo()
+  {
+    let reader = new FileReader();
+
+    reader.onload = function ()
+    {
+      let datos = {
+        data: reader.result.replace('data:', '')
+          .replace(/^.+,/, '')
+      }
+      fetch('http://localhost:5000/abrirArchivo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+      }).then(res =>
+      {
+        location.reload();
+      });
+    }
+
+    reader.onerror = function (error)
+    {
+      console.log('Error: ', error);
+    };
+
+    reader.readAsDataURL(fileChooser.files[0]);
+  }
+
+  function abrirArchivo(input)
+  {
+    input.click();
+  }
+
+  data.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5000/abrirArchivo", {
+          method: "GET",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        })
+          .then((res) => {
+            if (res.ok) {
+              return res.text();
+            }
+          })
+          .then((res_txt) => {
+            datafil.innerText = res_txt;
+          });
+      });
+
+</script>
 
 
 
-
-
-
-
-
-  
 
 <!-- END MAIN -->
 </div>
