@@ -1,9 +1,10 @@
 from flask import Flask, redirect, render_template, request, Response
 from flask_cors import CORS
 import base64
-from fronted.web import EntradasXML as xml
+import EntradasXML as xml
 
 salida=None
+alterado=None
 app = Flask(__name__)
 cors = CORS(app, resourse={r"/*": {"origin": "*"}})
 
@@ -17,7 +18,7 @@ def inicio():
 
 @app.route('/abrirArchivo', methods=['POST'])
 def abrirArchivo():
-    global salida
+    global salida, alterado
     salida=""
     datos = request.get_json()
     if datos['data'] == '':
@@ -25,13 +26,13 @@ def abrirArchivo():
     contenido = base64.b64decode(datos['data']).decode('utf-8')
     salida=contenido
     print(salida)
-    #xml.AbrirArchivo(salida)
+    alterado = xml.AbrirArchivo(salida)
     return salida
 
 @app.route('/abrirArchivo', methods=['GET'])
 def get_events():
-    global salida
-    data = salida
+    global alterado
+    data = alterado
     return Response(response=data,
                     mimetype='text/plain',
                     content_type='text/plain')
