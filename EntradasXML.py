@@ -149,14 +149,14 @@ def AbrirArchivo(Entrada):
     listasinteractivas.generarxml()
     return regreso
 
-def app():
-    ruta = askopenfilename(filetypes=[("Abrir Menú", "*.xml")])
-    if ruta == "":
-        print("No se eligio ningun menu")
-    else:
-        file = open(ruta, encoding='UTF-8')
-        data = file.read()
-        origen = AbrirArchivo(data)
+#def app():
+#    ruta = askopenfilename(filetypes=[("Abrir Menú", "*.xml")])
+#    if ruta == "":
+#        print("No se eligio ningun menu")
+#    else:
+#        file = open(ruta, encoding='UTF-8')
+#        data = file.read()
+#        origen = AbrirArchivo(data)
         #print(origen)
 
-app()
+#app()
