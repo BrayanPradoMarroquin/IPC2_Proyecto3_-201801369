@@ -37,6 +37,14 @@ def get_events():
                     mimetype='text/plain',
                     content_type='text/plain')
 
+@app.route('/llamarxml', methods=['GET'])
+def llamar():
+
+    archivoentrante = open('estadistica.xml', 'r')
+    lecturaxml = archivoentrante.read()
+
+    return Response(lecturaxml, mimetype='text/xml')
+
 if __name__ == '__main__':
     #app.run(threaded=True,port=5000)
     app.run(debug=True)
