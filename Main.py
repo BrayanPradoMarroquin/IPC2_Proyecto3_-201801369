@@ -2,6 +2,8 @@ from flask import Flask, redirect, render_template, request, Response
 from flask_cors import CORS
 import base64
 import EntradasXML as xml
+import listasinteractivas
+import os
 
 salida=None
 alterado=None
@@ -42,8 +44,23 @@ def llamar():
 
     archivoentrante = open('estadistica.xml', 'r')
     lecturaxml = archivoentrante.read()
+    archivoentrante.close()
 
     return Response(lecturaxml, mimetype='text/xml')
+
+#metodo para borrar listas y archivos
+@app.route('/borrar', methods=['GET'])
+def borrar():
+    xml.listaEventos=[]
+    listasinteractivas.listaux2=[]
+    listasinteractivas.listaux1=[]
+    listasinteractivas.fechas=[]
+    listasinteractivas.usuarios=[]
+    listasinteractivas.Afectados=[]
+    listasinteractivas.errores=[]
+    os.remove('estadistica.xml')
+
+    return Response('Se ha resetado el servidor', mimetype='text/plain')
 
 if __name__ == '__main__':
     #app.run(threaded=True,port=5000)

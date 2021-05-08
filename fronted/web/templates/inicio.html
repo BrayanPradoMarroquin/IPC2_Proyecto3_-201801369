@@ -22,6 +22,14 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
 </head><body class="w3-black">
 
+
+<!-- As a link -->
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <h4 class="navbar-brand">Brayan Hamllelo Estevem Prado Marroquin Carnet: 201801369</h4>
+
+  </div>
+</nav>
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <footer class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center"   id="about">
   <!-- Avatar image in top left corner -->
@@ -49,13 +57,40 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       <button id="Enviar" class="w3-button w3-block w3-dark-grey" type="submit">Enviar </button>
       <p>
     <p>
-      <button class="w3-button w3-block w3-dark-grey" type="submit">Reset</button>
+      <button id="resetear" class="w3-button w3-block w3-dark-grey" type="submit">Reset</button>
       <p>
   </header>
 
 
 <!-- END PAGE CONTENT -->
 </div>
+<!-- AREA DE SCRIPTS (PARA QUE NO SE CRASHEE)-->
+<!-- PARA RESETEAR EL SERVIDOR -->
+<script>
+    var reset = document.getElementById('resetear');
+    var datafil = document.getElementById('con-csss');
+    var salida = document.getElementById('con-css');
+
+    reset.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5000/borrar", {
+          method: "GET",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        })
+          .then((res) => {
+            if (res.ok) {
+              return res.text();
+            }
+          })
+          .then((res_txt) => {
+            salida.innerText = "";
+            datafil.innerText = "";
+          });
+      });
+</script>
+
 <script>
     var info = document.getElementById('Informacion');
     var user = document.getElementById('Usuarios');
@@ -146,7 +181,7 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 </script>
 
-
+<!-- PROPIEDAD DE BRAYAN HAMLLELO ESTEVEM PRADO MARROQUIN -->
 
 
 <!-- END MAIN -->

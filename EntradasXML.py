@@ -20,10 +20,6 @@ Salida=""
 cont=0
 Estado=0
 Evento = None
-listaFecha=[]
-listaUsuario=[]
-listaReportado=[]
-listaErrores=[]
 listaEventos=[]
 
 def AutomataUsuario(caracter):
@@ -45,7 +41,7 @@ def AutomataUsuario(caracter):
         return ""
 
 def gramaticaXML(linea):
-    global Salida, Estado, flagxml, listaFecha, listaUsuario, listaReportado, listaErrores, listaEventos, Evento
+    global Salida, Estado, flagxml, listaEventos, Evento
     if Estado==0:
         if re.match(r"[\t]*<EVENTO>",linea):
             Salida = Salida+linea+"\n"
