@@ -64,11 +64,11 @@ def borrar():
 
     return Response('Se ha resetado el servidor', mimetype='text/plain')
 
-@app.route('/pruebafalla', methods=['POST', 'GET'])
-def prueba():
-    fech = request.data.decode("utf-8")
-    print(fech)
-    return Response(fech, mimetype='text/plain')
+#@app.route('/pruebafalla', methods=['POST', 'GET'])
+#def prueba():
+#    fech = request.data.decode("utf-8")
+#    print(fech)
+#    return Response(fech, mimetype='text/plain')
 
 #ruta para pedir la fecha e iterar los usuarios
 @app.route('/peticionuser', methods=['POST', 'GET'])
@@ -83,6 +83,9 @@ def usuario():
     retorno = {'usuario': user,
                'contador': cont
                }
+
+    print(user)
+    print(cont)
 
     return jsonify(retorno)
 
@@ -100,6 +103,9 @@ def error():
     retorno = {'usuario': user,
                'contador': cont
                }
+
+    print(user)
+    print(cont)
 
     return jsonify(retorno)
 
