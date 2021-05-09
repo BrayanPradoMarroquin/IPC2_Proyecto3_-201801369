@@ -8,6 +8,8 @@ from flask import jsonify
 
 salida=None
 alterado=None
+retornousuario=None
+retornoerror=None
 app = Flask(__name__)
 cors = CORS(app, resourse={r"/*": {"origin": "*"}})
 
@@ -73,6 +75,9 @@ def borrar():
 #ruta para pedir la fecha e iterar los usuarios
 @app.route('/peticionuser', methods=['POST', 'GET'])
 def usuario():
+    global retornousuario
+    if retornousuario!=None:
+        retornousuario=None
     fecha = request.data.decode('utf-8')
     lista = listasinteractivas.usuarioxfecha(fecha)
     user=[]
@@ -80,18 +85,28 @@ def usuario():
     for list in lista:
         user.append(list.user)
         cont.append(list.cant)
-    retorno = {'usuario': user,
-               'contador': cont
+    retornousuario = {'usuario': user,
+                      'contador': cont,
+                      'type': 'bar'
                }
 
     print(user)
     print(cont)
 
-    return jsonify(retorno)
+    return jsonify(retornousuario)
+
+@app.route('/graficauser', methods=['GET'])
+def graficauser():
+    global retornousuario
+
+    return jsonify(retornousuario)
 
 #ruta para pedir la fecha e iterar los errores
 @app.route('/peticionerror', methods=['POST', 'GET'])
 def error():
+    global retornoerror
+    if retornoerror!=None:
+        retornoerror=None
     fecha = request.data.decode('utf-8')
     lista = listasinteractivas.errorxfecha(fecha)
     user=[]
@@ -100,14 +115,22 @@ def error():
         user.append(list.user)
         cont.append(list.cant)
 
-    retorno = {'usuario': user,
-               'contador': cont
+    retornoerror = {'usuario': user,
+                    'contador': cont,
+                    'type': '"linear"'
                }
 
     print(user)
     print(cont)
 
-    return jsonify(retorno)
+    return jsonify(retornoerror)
+
+@app.route('/graficaerror', methods=['GET'])
+def graficaerror():
+    global retornousuario
+
+    return jsonify(retornousuario)
+
 
 #ruta para abrir la documentacion oficial
 @app.route('/documentacion', methods=['GET'])
