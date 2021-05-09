@@ -18,7 +18,33 @@ fechas=[]
 usuarios=[]
 Afectados=[]
 errores=[]
+usuarioxfech=None
 
+#iterara las listas en base a la peticiones
+def usuarioxfecha(fecha):
+    global fechas, usuarioxfech
+    usuarioxfech=None
+    for Fecha in fechas:
+        if Fecha.fecha==fecha:
+            usuarioxfech=Fecha.usuarios
+    if usuarioxfech!=None:
+        return usuarioxfech
+    else:
+        return "No existe dicha fecha"
+
+#iterara las listas en base a la peticion de fechas
+def errorxfecha(fecha):
+    global fechas, usuarioxfech
+    usuarioxfech=[]
+    for Fecha in fechas:
+        if Fecha.fecha==fecha:
+            usuarioxfech=Fecha.errores
+    if usuarioxfech!=None:
+        return usuarioxfech
+    else:
+        return "No existe dicha fecha"
+
+#realiza la lista de eventos en base a las fechas
 def listar(listaEventos):
     global listaux1, listaux2, fechas, usuarios, Afectados, errores
     for fe in listaEventos:
@@ -83,6 +109,7 @@ def listar(listaEventos):
         listaux2=[]
         usuarios=[]
 
+#genera el archivo de estaditica en formato xml
 def generarxml():
     global fechas
     ESTADISTICAS = ET.Element('ESTADISTICAS')

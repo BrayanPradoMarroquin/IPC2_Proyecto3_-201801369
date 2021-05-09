@@ -4,6 +4,7 @@ import base64
 import EntradasXML as xml
 import listasinteractivas
 import os
+from flask import jsonify
 
 salida=None
 alterado=None
@@ -39,6 +40,7 @@ def get_events():
                     mimetype='text/plain',
                     content_type='text/plain')
 
+#metodo para llamar al xml
 @app.route('/llamarxml', methods=['GET'])
 def llamar():
 
@@ -61,6 +63,53 @@ def borrar():
     os.remove('estadistica.xml')
 
     return Response('Se ha resetado el servidor', mimetype='text/plain')
+
+@app.route('/pruebafalla', methods=['POST', 'GET'])
+def prueba():
+    fech = request.data.decode("utf-8")
+    print(fech)
+    return Response(fech, mimetype='text/plain')
+
+#ruta para pedir la fecha e iterar los usuarios
+@app.route('/peticionuser', methods=['POST', 'GET'])
+def usuario():
+    fecha = request.data.decode('utf-8')
+    lista = listasinteractivas.usuarioxfecha(fecha)
+    user=[]
+    cont=[]
+    for list in lista:
+        user.append(list.user)
+        cont.append(list.cant)
+    retorno = {'usuario': user,
+               'contador': cont
+               }
+
+    return jsonify(retorno)
+
+#ruta para pedir la fecha e iterar los errores
+@app.route('/peticionerror', methods=['POST', 'GET'])
+def error():
+    fecha = request.data.decode('utf-8')
+    lista = listasinteractivas.errorxfecha(fecha)
+    user=[]
+    cont=[]
+    for list in lista:
+        user.append(list.user)
+        cont.append(list.cant)
+
+    retorno = {'usuario': user,
+               'contador': cont
+               }
+
+    return jsonify(retorno)
+
+#ruta para abrir la documentacion oficial
+@app.route('/documentacion', methods=['GET'])
+def documentacion():
+
+    os.startfile('ENSAYO-PROYECTO3-IPC2.pdf')
+
+    return 'documentacion abierta'
 
 if __name__ == '__main__':
     #app.run(threaded=True,port=5000)

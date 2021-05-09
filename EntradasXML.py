@@ -25,7 +25,7 @@ listaEventos=[]
 def AutomataUsuario(caracter):
     global dentcomilla, cont
     c = ord(caracter)
-    if (ord(caracter)!=8221) & (ord(caracter)!=34) & (dentcomilla==False) & (caracter!="<") & (caracter!=">") & (ord(caracter)!=32):
+    if (ord(caracter)!=8221) & (ord(caracter)!=34) & (dentcomilla==False) & (caracter!="<") & (caracter!=">") & (ord(caracter)!=32) & (caracter!="\r"):
         return caracter
     elif ((ord(caracter)==8221) & (cont==0)) | ((ord(caracter)==34) & (cont==0)):
         dentcomilla=True
@@ -56,7 +56,7 @@ def gramaticaXML(linea):
         data=""
         for caracter in linea:
             if re.match(r"\d|\W", caracter):
-                if (caracter!="\t") & (caracter!=",") & (ord(caracter)!=32) & (caracter!="<") & (caracter!=">"):
+                if (caracter!="\t") & (caracter!=",") & (ord(caracter)!=32) & (caracter!="<") & (caracter!=">") & (caracter!="\r"):
                     data = data + caracter
         Evento = Eventos(data, "", "", "")
         #listaFecha.append(data)
@@ -108,7 +108,7 @@ def gramaticaXML(linea):
             cont=0
             for caracter in linea:
                 if re.match(r"\d", caracter):
-                    if (ord(caracter)!=32) & (caracter!="-"):
+                    if (ord(caracter)!=32) & (caracter!="-") & (caracter!="\r"):
                         data = data + caracter
                         cont=1
                 elif ((ord(caracter)==32) | (ord(caracter)==95) | (ord(caracter)==45)) & (cont==1):

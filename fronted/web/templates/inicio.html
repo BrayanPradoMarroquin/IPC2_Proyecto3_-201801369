@@ -22,7 +22,6 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
 </head><body class="w3-black">
 
-
 <!-- As a link -->
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
@@ -39,15 +38,17 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       <button  class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" onclick="abrirArchivo(fileChooser)">ARCHIVO</button>
       <button  id="Informacion" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">INFORMACION</button>
       <button  id="Usuarios" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">USUARIO</button>
+      <input type="datetime" id="dateuser" placeholder="dd/mm/yyyy">
       <button  id="Errores" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">ERRORES</button>
-      <button  id="Programador" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">PROGRAMADOR</button>
+      <input type="datetime" id="dateerror" placeholder="dd/mm/yyyy">
+      <!-- <button  id="Programador" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">PROGRAMADOR</button> -->
       <button  id="Ayuda" class="w3-button w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit">AYUDA</button>
   </div>
 </footer>
 
 <!-- Page Content -->
 <div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
+<!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small">Proyecto</span> 3</h1>
     <p></p>
@@ -61,10 +62,72 @@ html,body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       <p>
   </header>
 
-
 <!-- END PAGE CONTENT -->
 </div>
 <!-- AREA DE SCRIPTS (PARA QUE NO SE CRASHEE)-->
+<!-- PARA ABRIR DOCUMENTACION OFICIAL -->
+<script>
+    var reset = document.getElementById('Ayuda');
+
+    reset.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5000/documentacion", {
+          method: "GET",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        })
+          .then((res) => {
+            if (res.ok) {
+              return res.text();
+            }
+          })
+          .then((res_txt) => {
+            console.log = res.text();
+
+          });
+      });
+</script>
+<!-- PARA ENVIAR FECHA DE ERRORES -->
+<script>
+    var error = document.getElementById('Errores');
+
+    error.addEventListener("click", (e) => {
+    var user = document.getElementById('dateerror');
+    e.preventDefault();
+        fetch("http://localhost:5000/peticionerror", {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+          body: user.value,
+        }).then((res) => {
+          if (res.ok) {
+            console.log = "intento de grafica hecho";
+          }
+        });
+      });
+</script>
+<!-- PARA ENVIAR FECHA DE USUARIO -->
+<script>
+    var usuario = document.getElementById('Usuarios');
+
+    usuario.addEventListener("click", (e) => {
+    var user = document.getElementById('dateuser');
+    e.preventDefault();
+        fetch("http://localhost:5000/peticionuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+          body: user.value,
+        }).then((res) => {
+          if (res.ok) {
+            console.log = "intento de grafica hecho";
+          }
+        });
+      });
+</script>
 <!-- PARA RESETEAR EL SERVIDOR -->
 <script>
     var reset = document.getElementById('resetear');
